@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Nyle-canvas</title>
+<!-- Nyle-canvas editor v0.8.0 -->
+</head>
+<body>
+<script>
+  let css = document.createElement('style');
+  let ready = '@keyframes ready {' +
+    '  0% { opacity: 1 }' +
+    '100% { opacity: 0 }';
+  let rules = document.createTextNode(ready);
+  css.type = 'text/css';
+  css.appendChild(rules);
+  document.head.appendChild(css);
+  let showloading = document.createElement('div');
+  showloading.textContent     = 'L O A D I N G'
+  showloading.style.color     = '#ccccff';
+  showloading.style.fontSize  = '36px';
+  showloading.style.animation = 'ready .5s infinite alternate';
+  document.body.appendChild(showloading);
+</script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/jslib/opal/opal.min.js" onload="Opal.load('opal')"></script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/jslib/opal/opal-parser_patched.min.js" onload="Opal.load('opal-parser')"></script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/jslib/opal/native.min.js" onload="Opal.load('native')"></script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/nyle-canvas.js"></script>
+<script type="text/javascript">
+Store.createImage('ball.png', 20, 20, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAhGVYSWZNTQAqAAAACAAFARIAAwAAAAEAAQAAARoABQAAAAEAAABKARsABQAAAAEAAABSASgAAwAAAAEAAgAAh2kABAAAAAEAAABaAAAAAAAAAMAAAAABAAAAwAAAAAEAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAFKADAAQAAAABAAAAFAAAAAClL86nAAAACXBIWXMAAB2HAAAdhwGP5fFlAAABWWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgpMwidZAAABIUlEQVQ4Ea2VsQ6CMBCGWxQTddDogAOLiSsu+hq+h4uTz+Hk4nv4GrLIauLCIINGBzURDd6PbUOMCYp3CfR61/sK7fUqxQfZOf16pXKdJUkyIrdDT0kNe1AbSSmXt1t12onWZ2U3jTSaUg5ub54IMaZu+d331r9T8KIVbiZZuwGuxMDuuiefnF52wBd6sA0bg6HwY4y1dEBBGMI9FZuiUiB+E47UUuzlKYaQ2ADbvhyJk7dmeVPd47jWtLCbDDBMVgbLUqmRN/tXfrCwhsgzLnEA1EnLAS2ZtOGggQEgjhOXPACMuGhgWTjoXECw+BMbJQhV49+vBEOxXqi921uTVvQ8B+1w0wfJpA1KEPUDGH+UtHzpGFMPtYGtwGog2n+ugCffGGdXz4QuoQAAAABJRU5ErkJggg==')
+Store.createImage('bar.png', 100, 20, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAUCAIAAAD0og/CAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAAABMSURBVFhH7dAxAYBAEMCwA/8GkIYFVLC8gOueLN17Pe837NynLJgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYtTbzA2eSAoSU1HaBAAAAAElFTkSuQmCC')
+Store.createImage('block.png', 58, 18, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAASCAIAAACFJlokAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAAAA4SURBVEhL1ccxDQAwEAOx8Cf93Q+BK3nxdl/pcT2ux/W4HtfjelyP63E9rsf1uB7X43pcj+tltwd4MxAp+KoNqQAAAABJRU5ErkJggg==')
+</script>
+<script type="text/ruby">
+include DX
+# 初期設定用のコード (your setup code here)
+Window.width   = 640
+Window.height  = 480
+Window.bgcolor = C_BLACK
+
+img_bar = Image.load("bar.png")
+bar_x = 250
+bar_y = 480 - img_bar.height
+bar_width  = img_bar.width
+bar_height = img_bar.height
+
+img_ball = Image.load("ball.png")
+img_ball.set_color_key(C_WHITE)
+ball_x = 300
+ball_y = 400
+dx     =   2
+dy     =  -2
+ball_width  = img_ball.width
+ball_height = img_ball.height
+
+img_block = Image.load("block.png")                # ◆追加
+block_widh = img_block.width                       # ◆追加
+block_height = img_block.height                    # ◆追加
+
+block00_x = 21                                     # ◆追加
+block00_y = 21                                     # ◆追加
+
+# 1秒当たりの描画回数の設定（初期値：60）
+#Window.fps = 30
+
+
+Window.loop do
+  #bar_x += Input.x * 4       # 左右キーの場合
+  bar_x = Input.mouse_x       # マウスの場合
+  if bar_x < 20
+    bar_x = 20
+  elsif bar_x > 640 - 20 - img_bar.width
+    bar_x = 640 - 20 - img_bar.width
+  end
+
+  ball_x += dx
+  ball_y += dy
+
+  if ball_x < 20 || (ball_x + ball_width) > 620
+    ball_x -= dx
+    dx = -dx
+  end
+  
+  if ball_y < 20
+    ball_y -= dy
+    dy = -dy
+  end
+  
+  if (ball_y + ball_height) >  (480 - bar_height)  &&
+     (ball_y + ball_height) <= (480 - bar_height + dy.abs)  &&
+     (ball_x + ball_width)  >  bar_x               &&
+     ball_x                 <  (bar_x + bar_width)
+    
+    ball_y -= dy
+    dy = -dy
+  end
+
+
+  Window.draw_box_fill(  0,   0,  20, 480, C_WHITE)
+  Window.draw_box_fill(620,   0, 640, 480, C_WHITE)
+  Window.draw_box_fill(  0,   0, 640,  20, C_WHITE)
+
+  Window.draw(bar_x, bar_y, img_bar)
+  Window.draw(ball_x, ball_y, img_ball)
+
+  Window.draw(block00_x, block00_y, img_block)          # ◆追加
+end
+</script>
+</body>
+</html>

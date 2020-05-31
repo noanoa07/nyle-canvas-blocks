@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Nyle-canvas</title>
+<!-- Nyle-canvas editor v0.8.0 -->
+</head>
+<body>
+<script>
+  let css = document.createElement('style');
+  let ready = '@keyframes ready {' +
+    '  0% { opacity: 1 }' +
+    '100% { opacity: 0 }';
+  let rules = document.createTextNode(ready);
+  css.type = 'text/css';
+  css.appendChild(rules);
+  document.head.appendChild(css);
+  let showloading = document.createElement('div');
+  showloading.textContent     = 'L O A D I N G'
+  showloading.style.color     = '#ccccff';
+  showloading.style.fontSize  = '36px';
+  showloading.style.animation = 'ready .5s infinite alternate';
+  document.body.appendChild(showloading);
+</script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/jslib/opal/opal.min.js" onload="Opal.load('opal')"></script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/jslib/opal/opal-parser_patched.min.js" onload="Opal.load('opal-parser')"></script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/jslib/opal/native.min.js" onload="Opal.load('native')"></script>
+<script type="text/javascript" src="https://spoolkitamura.github.io/nyle-canvas/dev2/nyle-canvas.js"></script>
+<script type="text/javascript">
+Store.createImage('bar.png', 100, 20, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAUCAIAAAD0og/CAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAAABMSURBVFhH7dAxAYBAEMCwA/8GkIYFVLC8gOueLN17Pe837NynLJgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYtTbzA2eSAoSU1HaBAAAAAElFTkSuQmCC')
+</script>
+<script type="text/ruby">
+include DX
+# 初期設定用のコード (your setup code here)
+Window.width   = 640
+Window.height  = 480
+Window.bgcolor = C_BLACK
+
+img_bar = Image.load("bar.png")
+bar_x = 0
+bar_y = 480 - img_bar.height
+
+Window.loop do
+  #bar_x += Input.x * 4       # 左右キーの場合
+  bar_x = Input.mouse_x       # マウスの場合
+  if bar_x < 20                              # ◆追加
+    bar_x = 20                               # ◆追加
+  elsif bar_x > 640 - 20 - img_bar.width     # ◆追加
+    bar_x = 640 - 20 - img_bar.width         # ◆追加
+  end                                        # ◆追加
+
+  Window.draw_box_fill(  0,   0,  20, 480, C_WHITE)
+  Window.draw_box_fill(620,   0, 640, 480, C_WHITE)
+  Window.draw_box_fill(  0,   0, 640,  20, C_WHITE)
+
+  Window.draw(bar_x, bar_y, img_bar)
+end
+</script>
+</body>
+</html>
