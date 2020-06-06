@@ -11,7 +11,6 @@ bar_width  = img_bar.width                 # ◆追加
 bar_height = img_bar.height                # ◆追加
 
 img_ball = Image.load("ball.png")
-img_ball.set_color_key(C_WHITE)
 ball_x = 300
 ball_y = 400
 dx     =   2

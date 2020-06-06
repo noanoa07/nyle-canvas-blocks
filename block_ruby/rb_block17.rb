@@ -9,7 +9,6 @@ bar_x = 250                        # ◇変更（数値変更）
 bar_y = 480 - img_bar.height
 
 img_ball = Image.load("ball.png")
-img_ball.set_color_key(C_WHITE)
 ball_x = 300
 ball_y = 400
 dx     =   2

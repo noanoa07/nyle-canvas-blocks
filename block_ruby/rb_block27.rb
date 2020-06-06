@@ -27,7 +27,6 @@ bar_height = img_bar.height
 
 # ボールの準備
 img_ball = Image.load("ball.png")
-img_ball.set_color_key(C_WHITE)
 ball_x = 300
 ball_y = 400
 dx     =   2

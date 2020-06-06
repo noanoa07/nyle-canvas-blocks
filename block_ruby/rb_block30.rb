@@ -45,7 +45,6 @@ bar = Item.new(250, 480 - img_bar.height, img_bar)
 
 # ボールの準備
 img_ball = Image.load("ball.png")
-img_ball.set_color_key(C_WHITE)
 ball = Item.new(300, 400, img_ball)
 dx =  2   # ボールのスピード（x方向）
 dy = -2   # ボールのスピード（y方向）
